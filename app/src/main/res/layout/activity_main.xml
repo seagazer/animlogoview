@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.seagazer.sample.MainActivity">
+
+    <com.seagazer.ui.AnimLogoView
+        android:id="@+id/anim_logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:gradientAnimDuration="2000"
+        app:gradientColor="@color/colorAccent"
+        app:logoName="Seagazer"
+        app:offsetAnimDuration="1500"
+        app:showGradient="true"
+        app:textColor="@color/colorPrimary"
+        app:textSize="30sp"
+        app:verticalOffset="50dp" />
+
+</FrameLayout>
