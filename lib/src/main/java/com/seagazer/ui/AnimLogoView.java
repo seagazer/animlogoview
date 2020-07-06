@@ -56,6 +56,7 @@ public class AnimLogoView extends View {
     private int mWidth, mHeight;
     private boolean isShowGradient;
     private int mLogoOffset;
+    private Animator.AnimatorListener mGradientListener;
 
     public AnimLogoView(Context context) {
         this(context, null);
@@ -142,6 +143,9 @@ public class AnimLogoView extends View {
     // init the gradient animation
     private void initGradientAnimation(int width) {
         mGradientAnimator = ValueAnimator.ofInt(0, 2 * width);
+        if (mGradientListener != null) {
+            mGradientAnimator.addListener(mGradientListener);
+        }
         mGradientAnimator.setDuration(mGradientDuration);
         mGradientAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -190,7 +194,7 @@ public class AnimLogoView extends View {
      * @param listener AnimatorListener
      */
     public void addGradientAnimListener(Animator.AnimatorListener listener) {
-        mGradientAnimator.addListener(listener);
+        mGradientListener = listener;
     }
 
     /**
