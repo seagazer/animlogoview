@@ -1,4 +1,4 @@
-package com.seagazer.ui;
+package com.seagazer.animlogoview;
 
 import org.junit.Test;
 

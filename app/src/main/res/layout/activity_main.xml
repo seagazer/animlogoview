@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.seagazer.sample.MainActivity">
 
-    <com.seagazer.ui.AnimLogoView
+    <com.seagazer.animlogoview.AnimLogoView
         android:id="@+id/anim_logo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

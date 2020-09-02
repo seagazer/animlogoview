@@ -7,7 +7,7 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.seagazer.ui.AnimLogoView;
+import com.seagazer.animlogoview.AnimLogoView;
 
 public class MainActivity extends AppCompatActivity {
 
