@@ -10,12 +10,14 @@
         android:id="@+id/anim_logo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:autoPlay="false"
         app:gradientAnimDuration="2000"
         app:gradientColor="@color/colorAccent"
         app:logoName="Seagazer"
         app:offsetAnimDuration="1500"
         app:showGradient="true"
         app:textColor="@color/colorPrimary"
+        app:textPadding="2dp"
         app:textSize="30sp"
         app:verticalOffset="50dp" />
 

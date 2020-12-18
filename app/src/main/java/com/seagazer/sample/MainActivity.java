@@ -19,14 +19,15 @@ public class MainActivity extends AppCompatActivity {
         animLogoView.addOffsetAnimListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                Log.d("MainActivity", "Offset anim end");
+                Log.d("AnimLogoView", "Offset anim end");
             }
         });
         animLogoView.addGradientAnimListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                Log.d("MainActivity", "Gradient anim end");
+                Log.d("AnimLogoView", "Gradient anim end");
             }
         });
+        animLogoView.startAnimation();
     }
 }
