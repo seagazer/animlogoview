@@ -1,5 +1,5 @@
 # AnimLogoView
-Animtion view to show logo name.
+Animation view to display logo name.
 [![](https://www.jitpack.io/v/seagazer/animlogoview.svg)](https://www.jitpack.io/#seagazer/animlogoview)
 
 This library is separated from widgets of library sui, see more widgets from https://github.com/seagazer/sui.
