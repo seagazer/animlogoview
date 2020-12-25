@@ -104,59 +104,69 @@ public class AnimLogoView extends View {
     }
 
     private void initPaint() {
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        if (mPaint == null) {
+            mPaint = new Paint();
+            mPaint.setAntiAlias(true);
+            mPaint.setStyle(Paint.Style.FILL);
+            mPaint.setStrokeCap(Paint.Cap.ROUND);
+        }
         mPaint.setTextSize(mTextSize);
         mPaint.setColor(mTextColor);
     }
 
     // init the translation animation
     private void initOffsetAnimation() {
-        mOffsetAnimator = ValueAnimator.ofFloat(0, 1);
-        mOffsetAnimator.setDuration(mOffsetDuration);
-        mOffsetAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
-        mOffsetAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                if (mQuietPoints.size() <= 0 || mRadonPoints.size() <= 0) {
-                    return;
+        if (mOffsetAnimator == null) {
+            mOffsetAnimator = ValueAnimator.ofFloat(0, 1);
+            mOffsetAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+            mOffsetAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    if (mQuietPoints.size() <= 0 || mRadonPoints.size() <= 0) {
+                        return;
+                    }
+                    mOffsetAnimProgress = (float) animation.getAnimatedValue();
+                    invalidate();
                 }
-                mOffsetAnimProgress = (float) animation.getAnimatedValue();
-                invalidate();
-            }
-        });
-        mOffsetAnimator.addListener(new AnimatorListenerAdapter() {
+            });
+            mOffsetAnimator.addListener(new AnimatorListenerAdapter() {
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                if (mGradientAnimator != null && isShowGradient) {
-                    isOffsetAnimEnd = true;
-                    mPaint.setShader(mLinearGradient);
-                    mGradientAnimator.start();
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    if (mGradientAnimator != null && isShowGradient) {
+                        isOffsetAnimEnd = true;
+                        mPaint.setShader(mLinearGradient);
+                        mGradientAnimator.start();
+                    }
                 }
-            }
-        });
+            });
+        }
+        mOffsetAnimator.setDuration(mOffsetDuration);
     }
 
     // init the gradient animation
     private void initGradientAnimation(int width) {
-        mGradientAnimator = ValueAnimator.ofInt(0, 2 * width);
-        if (mGradientListener != null) {
-            mGradientAnimator.addListener(mGradientListener);
+        if (width == 0) {
+            Log.w(this.getClass().getSimpleName(), "The view has not measure, it will auto init later.");
+            return;
+        }
+        if (mGradientAnimator == null) {
+            mGradientAnimator = ValueAnimator.ofInt(0, 2 * width);
+            if (mGradientListener != null) {
+                mGradientAnimator.addListener(mGradientListener);
+            }
+            mGradientAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    mMatrixTranslate = (int) animation.getAnimatedValue();
+                    invalidate();
+                }
+            });
+            mLinearGradient = new LinearGradient(-width, 0, 0, 0, new int[]{mTextColor, mGradientColor, mTextColor},
+                    new float[]{0, 0.5f, 1}, Shader.TileMode.CLAMP);
+            mGradientMatrix = new Matrix();
         }
         mGradientAnimator.setDuration(mGradientDuration);
-        mGradientAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mMatrixTranslate = (int) animation.getAnimatedValue();
-                invalidate();
-            }
-        });
-        mLinearGradient = new LinearGradient(-width, 0, 0, 0, new int[]{mTextColor, mGradientColor, mTextColor},
-                new float[]{0, 0.5f, 1}, Shader.TileMode.CLAMP);
-        mGradientMatrix = new Matrix();
     }
 
     @Override
@@ -222,6 +232,10 @@ public class AnimLogoView extends View {
     }
 
     private void initLogoCoordinate() {
+        if (mWidth == 0 || mHeight == 0) {
+            Log.w(this.getClass().getSimpleName(), "The view has not measure, it will auto init later.");
+            return;
+        }
         float centerY = mHeight / 2f + mPaint.getTextSize() / 2 + mLogoOffset;
         // calculate the final xy of the text
         float totalLength = 0;
@@ -296,6 +310,7 @@ public class AnimLogoView extends View {
      */
     public void setOffsetAnimDuration(int duration) {
         mOffsetDuration = duration;
+        initOffsetAnimation();
     }
 
     /**
@@ -305,6 +320,7 @@ public class AnimLogoView extends View {
      */
     public void setGradientAnimDuration(int duration) {
         mGradientDuration = duration;
+        initGradientAnimation(mWidth);
     }
 
     /**
@@ -332,6 +348,7 @@ public class AnimLogoView extends View {
      */
     public void setTextPadding(int padding) {
         mTextPadding = padding;
+        initLogoCoordinate();
     }
 
     /**
@@ -341,6 +358,7 @@ public class AnimLogoView extends View {
      */
     public void setTextColor(int color) {
         mTextColor = color;
+        initPaint();
     }
 
     /**
@@ -350,5 +368,6 @@ public class AnimLogoView extends View {
      */
     public void setTextSize(int size) {
         mTextSize = size;
+        initPaint();
     }
 }
