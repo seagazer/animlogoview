@@ -1,4 +1,4 @@
-# AnimLogoView [![](https://www.jitpack.io/v/seagazer/animlogoview.svg)](https://www.jitpack.io/#seagazer/animlogoview)
+# AnimLogoView
 Animation view to display logo name.
 [![](https://www.jitpack.io/v/seagazer/animlogoview.svg)](https://www.jitpack.io/#seagazer/animlogoview)
 
