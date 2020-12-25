@@ -1,4 +1,4 @@
-# AnimLogoView
+# AnimLogoView [![](https://www.jitpack.io/v/seagazer/animlogoview.svg)](https://www.jitpack.io/#seagazer/animlogoview)
 Animation view to display logo name.
 [![](https://www.jitpack.io/v/seagazer/animlogoview.svg)](https://www.jitpack.io/#seagazer/animlogoview)
 
@@ -17,7 +17,7 @@ allprojects {
 }
 
 // step2. add the library in your app module
-implementation 'com.github.seagazer:animlogoview:1.0.1'
+implementation 'com.github.seagazer:animlogoview:1.0.2'
 
 // step3. define in layout xml
     <com.seagazer.animlogoview.AnimLogoView
